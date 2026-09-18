@@ -64,6 +64,12 @@ public class Clientes {
             System.out.println("Indica un matricula nuevo");
             matricula=sc.nextLine();
         }
+        //Hay que validar que la matricula no exite ya
         this.matricula = matricula.toUpperCase().strip();
+    }
+
+    @Override
+    public String toString() {
+        return indentificador+"\t"+nombre+"\t"+telefono+"\t"+matricula;
     }
 }
