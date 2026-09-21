@@ -12,7 +12,18 @@ public class MansionZombie {
        }else if(num ==2){
            habitaciones=10;
        }
-       while(habitaciones>0 && s1.getPuntosAtaque()>0){
+       while(habitaciones>0 && s1.getVidasRestantes()>0){
+           Habitacion h1 = new Habitacion();
+           
+           Menu.menuOpciones(s1, h1);
+           
+           
+           
+           
+           
+           
+           
+           
            habitaciones --;
        }
     }

@@ -40,4 +40,5 @@ public class Habitacion {
         return "Habitacion{" + "busqueda=" + busqueda + ", habActual=" + habActual + ", numZombies=" + numZombies + '}';
     }
     
+    
 }

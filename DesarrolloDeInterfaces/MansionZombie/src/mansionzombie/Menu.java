@@ -4,8 +4,10 @@ package mansionzombie;
 import java.util.*;
 
 public class Menu {
+    
+    static Scanner sc=new Scanner(System.in);
     public static int menuDificultades(){
-        Scanner sc=new Scanner(System.in);
+        
         int op;
         System.out.println("Elige el nivel de dificultad al que te gustaria jugar");
         System.out.println("1. Fácil: la mansión se supera jugando 5 habitaciones");
@@ -17,9 +19,30 @@ public class Menu {
             op=sc.nextInt(); 
         }
         return op;
+        
     }
     
+    public static void menuOpciones(Superviviente s1){
+        
+        int op=0;
+        if(null){
+            System.out.println("1. Combatir contra un zombie: sólo estará disponible si hay al menos un zombie activo en\n" +
+            "la habitación.");
+            op=sc.nextInt();
+            while(op!=1){
+                System.out.println("1. Combatir contra un zombie: sólo estará disponible si hay al menos un zombie activo en\n" +
+                "la habitación.");
+                op=sc.nextInt();
+            } 
+            Jugadas.combatir(s1);
+        }
+        
     
+    
+    
+    
+    
+    }
     
     
     
