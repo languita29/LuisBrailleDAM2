@@ -1,16 +1,18 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ficheros {
     public static List <PagosDeRepostajes> leerFicheroRepostaje(){
         System.out.println("Recuperamos los repostajes del fichero.");
 
-        return null;
+        List<PagosDeRepostajes>  listaPagosRepostaje = new ArrayList<>();
+        return listaPagosRepostaje;
     }
 
     public static List <Clientes> leerFicheroClientes(){
         System.out.println("Recuperamos los clientes del fichero.");
-
-        return null;
+        List<Clientes>  listaClientes = new ArrayList<>();
+        return listaClientes;
     }
 
     public static void guardarClientes(List Clientes){
