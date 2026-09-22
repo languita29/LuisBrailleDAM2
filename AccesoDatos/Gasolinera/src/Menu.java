@@ -3,19 +3,16 @@ import java.util.Scanner;
 
 public  class Menu {
     public static void opcionesMenu(){
-        List<Clientes> listaClientes = FicherosCSV.leerFicheroClientes();
-        List<PagosDeRepostajes> listaPagos = FicherosCSV.leerFicheroRepostaje();
-
-
 
         Scanner sc=new Scanner(System.in);
+
         informacionMenu();
         int op=0;
         op=sc.nextInt();
         while(op!=0){
             switch(op){
                 case 1:
-                    listaClientes.add(GestionClientes.altaCliente());
+                    GestionClientes.altaCliente();
                     break;
                 case 2:
 
@@ -44,9 +41,6 @@ public  class Menu {
             op=sc.nextInt();
 
         }
-
-        FicherosCSV.guardarClientes(listaClientes);
-        FicherosCSV.guardarPagos(listaPagos);
      }
      public static void informacionMenu(){
          System.out.println("=== GESTION DE GASOLINERA ===");
