@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public  class Menu {
     public static void opcionesMenu(){
-        List<Clientes> listaClientes = Ficheros.leerFicheroClientes();
-        List<PagosDeRepostajes> listaPagos = Ficheros.leerFicheroRepostaje();
+        List<Clientes> listaClientes = FicherosCSV.leerFicheroClientes();
+        List<PagosDeRepostajes> listaPagos = FicherosCSV.leerFicheroRepostaje();
 
 
 
@@ -45,8 +45,8 @@ public  class Menu {
 
         }
 
-        Ficheros.guardarClientes(listaClientes);
-        Ficheros.guardarPagos(listaPagos);
+        FicherosCSV.guardarClientes(listaClientes);
+        FicherosCSV.guardarPagos(listaPagos);
      }
      public static void informacionMenu(){
          System.out.println("=== GESTION DE GASOLINERA ===");
