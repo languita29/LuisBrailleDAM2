@@ -1,6 +1,14 @@
+import jdk.swing.interop.SwingInterOpUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class GestionClientes {
+
+    static FicherosCSV f1=new FicherosCSV();
+
     public static void altaCliente(){
         Scanner sc = new Scanner(System.in);
 
@@ -16,9 +24,13 @@ public class GestionClientes {
         System.out.println("Indica matricula:");
         matricula = sc.nextLine();
         
-
-
-        Clientes c1 = new Clientes();
+        if (buscarClientes(matricula).isEmpty()){
+            Clientes c1 = new Clientes(Clientes.contId, nombre,telefono,matricula);
+            Clientes.contId ++;
+            f1.guardarClientes(c1);
+        } else{
+            System.out.println("Ya exite");
+        }
 
     }
 
@@ -26,9 +38,27 @@ public class GestionClientes {
 
 
     public static void listarClientes(){
-        System.out.println("Aqui se listan los clientes");
+       Collection<Clientes> listaClientes= f1.leerClientes();
+       if (listaClientes.isEmpty()){
+           System.out.println("No exite el cliente");
+       }else{//ordenar lista
+           System.out.println("ID\tNOMBRE\tTELEFONO\tMATRICULA\t");
+           for(Clientes c1: listaClientes){
+
+               System.out.println(c1.toString());
+           }
+       }
     }
-    public static void buscarClientes(){
-        System.out.println("Aqui se buscan los clientes");
+    public static Collection<Clientes> buscarClientes(String palabra){
+
+        palabra=palabra.toLowerCase();
+        Collection <Clientes> lista=f1.leerClientes();
+        Collection<Clientes> clienteEncontrados=new ArrayList<>();
+        for (Clientes c1:lista){
+            if(c1.getNombre().toLowerCase().contains(palabra) || c1.getMatricula().toLowerCase().contains(palabra) || c1.getTelefono().toLowerCase().contains(palabra)){
+                clienteEncontrados.add(c1);
+            }
+        }
+        return clienteEncontrados;
     }
 }

@@ -20,8 +20,9 @@ public  class Menu {
 
                     break;
                 case 3:
-
-                    GestionClientes.buscarClientes();
+                    System.out.print("Texto que buscar: ");
+                    String palabra=sc.nextLine();
+                    GestionClientes.buscarClientes(palabra);
                     break;
                 case 4:
 

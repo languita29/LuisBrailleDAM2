@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
-public class Clientes {
+public class Clientes implements Comparable<Clientes>{
+    public static int contId = 1;
     private int indentificador;
     private String nombre;
     private String telefono;
@@ -71,5 +72,11 @@ public class Clientes {
     @Override
     public String toString() {
         return indentificador+"\t"+nombre+"\t"+telefono+"\t"+matricula;
+    }
+
+    @Override
+    public int compareTo(Clientes o) {
+        
+        return 0;
     }
 }
