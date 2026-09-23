@@ -3,12 +3,11 @@ package mansionzombie;
 
 public class Habitacion {
  private int busqueda;
- private int habActual;
+    static public int habActual=1;
  private int numZombies;
 
     public Habitacion() {
         this.busqueda = 3;
-        this.habActual = 1;
         this.numZombies = 1;
     }
     public int getBusqueda() {
