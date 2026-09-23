@@ -4,18 +4,18 @@ package mansionzombie;
 public class MansionZombie {
 
     public static void main(String[] args) {
-        Superviviente s1=new Superviviente();
+       Superviviente s1=new Superviviente();
        int num= Menu.menuDificultades();
-       int habitaciones=0;
+       int habitaciones;
        if (num==1){
            habitaciones=5;
-       }else if(num ==2){
+       }else {
            habitaciones=10;
        }
        while(Habitacion.habActual <= habitaciones && s1.getVidasRestantes()>0){
            Habitacion h1 = new Habitacion();
            
-           Menu.menuOpciones(s1, h1);
+           Menu.menuOpciones(h1, s1);
            
            
            
@@ -24,8 +24,8 @@ public class MansionZombie {
            
            
            
-           Habitacion.habActual ++;
            
+           Habitacion.habActual ++;  
        }
     }
     

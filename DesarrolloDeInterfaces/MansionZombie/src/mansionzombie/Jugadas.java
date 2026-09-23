@@ -3,28 +3,26 @@ package mansionzombie;
 
 public class Jugadas {
     static public void combatir(Superviviente s1){
-        int ataqueSuperviviente = 0;
-        int ataqueZombie = 0;
-        int ronda = 0;
+        int ronda = 1;
         
         Zombie z1 = new Zombie();
         
         while(z1.getVidasRestantes() > 0 && s1.getVidasRestantes() > 0){
             System.out.println("Ronda "+ronda+":");
             System.out.println("Vidas restantes superviviente: "+s1.getVidasRestantes());
-            System.out.println("Vidas restantes superviviente: "+z1.getVidasRestantes());
+            System.out.println("Vidas restantes zombie: "+z1.getVidasRestantes());
             
-            ataqueSuperviviente = dadoSuperviviente() + s1.getArmas();
-            System.out.println("Has atacado al zombie con una puntuacion en el dado de :"+(dadoSuperviviente()-s1.getArmas()) +" más tus armas de "+s1.getArmas());
-            z1.setVidasRestantes(z1.getVidasRestantes() - ataqueSuperviviente);
+            int tiradaSuperviente =  dadoSuperviviente();
+            System.out.println("Has atacado al zombie con una puntuacion en el dado de :"+ tiradaSuperviente +" más tus armas de "+s1.getArmas()+", al zombie le queda "+z1.getVidasRestantes()+" vidas.");
+            z1.setVidasRestantes(z1.getVidasRestantes() - (tiradaSuperviente+s1.getArmas()));
 
             if(z1.getVidasRestantes()>0){
-                ataqueZombie = dadoZombie(z1);
+                int tiradaZombie = dadoZombie(z1);
 
-                ataqueZombie = ataqueZombie - s1.getArmas();//hacer comprobacion para que no llegue a negativo
+                tiradaZombie = tiradaZombie - s1.getProtecciones();//hacer comprobacion para que no llegue a negativo
 
-                s1.setVidasRestantes(s1.getVidasRestantes()- ataqueZombie);
-                System.out.println("El zombie te ha atacado con "+ataqueZombie);
+                s1.setVidasRestantes(s1.getVidasRestantes()- tiradaZombie);
+                System.out.println("El zombie te ha atacado con "+tiradaZombie+", te quedan "+s1.getVidasRestantes()+" vidas restantes.");
             } 
         }
         if(z1.getVidasRestantes() > 0 && s1.getVidasRestantes() < 0){

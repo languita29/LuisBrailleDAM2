@@ -2,9 +2,9 @@
 package mansionzombie;
 
 public class Habitacion {
- private int busqueda;
+    private int busqueda;
     static public int habActual=1;
- private int numZombies;
+    private int numZombies;
 
     public Habitacion() {
         this.busqueda = 3;
