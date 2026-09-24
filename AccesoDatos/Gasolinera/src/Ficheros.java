@@ -1,9 +1,10 @@
 import java.util.Collection;
+import java.util.LinkedList;
 
 public interface Ficheros {
-    public Collection<Clientes> leerClientes();
-    public Collection <PagosDeRepostajes> leerRepostajes();
-    public void guardarClientes(Clientes c1);
-    public void guardarRepostajes(PagosDeRepostajes p1);
+    public LinkedList<Clientes> leerClientes();
+    public LinkedList <PagosDeRepostajes> leerRepostajes();
+    public void guardarClientes(LinkedList<Clientes> lista);
+    public void guardarRepostajes(LinkedList<PagosDeRepostajes> lista);
 
 }

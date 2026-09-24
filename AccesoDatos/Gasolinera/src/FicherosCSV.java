@@ -1,25 +1,25 @@
 import java.util.Collection;
-import java.util.List;
+import java.util.LinkedList;
 
 public class FicherosCSV implements Ficheros{
     @Override
-    public Collection<Clientes> leerClientes() {
+    public LinkedList<Clientes> leerClientes() {
         return List.of();
     }
 
     @Override
-    public Collection<PagosDeRepostajes> leerRepostajes() {
+    public LinkedList<PagosDeRepostajes> leerRepostajes() {
 
         return List.of();
     }
 
     @Override
-    public void guardarClientes(Clientes c1) {
+    public void guardarClientes( LinkedList<Clientes> lista) {
 
     }
 
     @Override
-    public void guardarRepostajes(PagosDeRepostajes p1) {
+    public void guardarRepostajes( LinkedList<PagosDeRepostajes> lista) {
 
     }
 }

@@ -1,8 +1,14 @@
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public  class Menu {
     public static void opcionesMenu(){
+
+        FicherosCSV f1 = new FicherosCSV();
+
+        LinkedList<Clientes> listaClientes = f1.leerClientes();
+        LinkedList<PagosDeRepostajes> listaRepostajes = f1.leerRepostajes();
 
         Scanner sc=new Scanner(System.in);
 
@@ -12,21 +18,22 @@ public  class Menu {
         while(op!=0){
             switch(op){
                 case 1:
-                    GestionClientes.altaCliente();
+                    GestionClientes.altaCliente(listaClientes);
                     break;
                 case 2:
 
-                    GestionClientes.listarClientes();
+                    GestionClientes.listarClientes(listaClientes);
 
                     break;
                 case 3:
                     System.out.print("Texto que buscar: ");
                     String palabra=sc.nextLine();
-                    GestionClientes.buscarClientes(palabra);
+                    LinkedList<Clientes> clienteEncontrados = GestionClientes.buscarClientes(palabra, listaClientes);
+                    GestionClientes.listarClientes(clienteEncontrados);
                     break;
                 case 4:
 
-                    GestionRepostaje.procesarPago();
+                    GestionRepostaje.procesarPago(listaClientes);
 
                     break;
                 case 5:
@@ -42,6 +49,9 @@ public  class Menu {
             op=sc.nextInt();
 
         }
+        System.out.println("Saliendo del programa ... guardando datos.");
+        f1.guardarClientes(listaClientes);
+        f1.guardarRepostajes(listaRepostajes);
      }
      public static void informacionMenu(){
          System.out.println("=== GESTION DE GASOLINERA ===");

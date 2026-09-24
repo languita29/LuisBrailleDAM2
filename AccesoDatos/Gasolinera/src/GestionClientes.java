@@ -1,15 +1,12 @@
 import jdk.swing.interop.SwingInterOpUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class GestionClientes {
 
     static FicherosCSV f1=new FicherosCSV();
 
-    public static void altaCliente(){
+    public static void altaCliente(LinkedList<Clientes> listaClientes){
         Scanner sc = new Scanner(System.in);
 
         String nombre;
@@ -27,7 +24,7 @@ public class GestionClientes {
         if (buscarClientes(matricula).isEmpty()){
             Clientes c1 = new Clientes(Clientes.contId, nombre,telefono,matricula);
             Clientes.contId ++;
-            f1.guardarClientes(c1);
+            listaClientes.add(c1);
         } else{
             System.out.println("Ya exite");
         }
@@ -37,8 +34,8 @@ public class GestionClientes {
 
 
 
-    public static void listarClientes(){
-       Collection<Clientes> listaClientes= f1.leerClientes();
+    public static void listarClientes(LinkedList<Clientes> listaClientes){
+
        if (listaClientes.isEmpty()){
            System.out.println("No exite el cliente");
        }else{//ordenar lista
@@ -49,11 +46,10 @@ public class GestionClientes {
            }
        }
     }
-    public static Collection<Clientes> buscarClientes(String palabra){
+    public static LinkedList<Clientes> buscarClientes(String palabra, LinkedList<Clientes> lista){
 
         palabra=palabra.toLowerCase();
-        Collection <Clientes> lista=f1.leerClientes();
-        Collection<Clientes> clienteEncontrados=new ArrayList<>();
+        LinkedList<Clientes> clienteEncontrados=new LinkedList<>();
         for (Clientes c1:lista){
             if(c1.getNombre().toLowerCase().contains(palabra) || c1.getMatricula().toLowerCase().contains(palabra) || c1.getTelefono().toLowerCase().contains(palabra)){
                 clienteEncontrados.add(c1);
