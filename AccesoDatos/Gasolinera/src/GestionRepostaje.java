@@ -9,7 +9,7 @@ public class GestionRepostaje {
         if (listaClientes.isEmpty()){
             System.out.println("Primero tienes que dar de alta un usuario.");
         } else {
-            System.out.print("El id tine que ser positivo, indicalo de nuevo: ");
+            System.out.print("Dime el id del usuario: ");
             int id = sc.nextInt();
             while(id < 0){
                 System.out.print("El id tine que ser positivo, indicalo de nuevo: ");
@@ -17,13 +17,21 @@ public class GestionRepostaje {
 
             }
 
-
             for(Clientes c1 : listaClientes){
-                if(c1.getIndentificador() == id)
-                    //Solicitar datos de pago
-                    //Crear pago
-                    //Asignar id pago
-                    //Puntos 4 y 5
+                if(c1.getIndentificador() == id){
+
+                    System.out.println("Fecha (dd/MM/aaaa; vacío para hoy): ");
+                    String fecha=sc.nextLine();
+                    System.out.println("Importe (€): ");
+                    double importe=sc.nextDouble();
+                    System.out.println("Litros: ");
+                    double litros=sc.nextDouble();
+                    System.out.println("Combustible: ");
+                    String combustible=sc.nextLine();
+                    PagosDeRepostajes p1 = new PagosDeRepostajes(,id,importe,litros,combustible);
+                    //Ver donde tengo que meter p1
+                    System.out.println("Pago "+//id pago+"registrado para "+ c1.getNombre()+": "+importe);
+                }
             }
         }
 

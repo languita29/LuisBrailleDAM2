@@ -1,23 +1,29 @@
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Scanner;
 
 public class PagosDeRepostajes {
     Scanner sc=new Scanner(System.in);
+    private static int idPagosCont=1;
     private int identificador;
     private int idCliente;
-    private Date fecha;
+    private LocalDate fecha;
+    private final DateTimeFormatter FORMATO_FECHA=DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private double importe;
     private  double litros;
     private String combustible;
 
-    public PagosDeRepostajes(int identificador, int idCliente, Date fecha, double importe, double litros, String combustible) {
+    public PagosDeRepostajes(int identificador, int idCliente, String fecha, double importe, double litros, String combustible) {
         setIdentificador(identificador);
-        this.idCliente = idCliente;//falta verificar si el cliente existe
-        this.fecha = fecha;
-        this.importe = importe;
-        this.litros = litros;
-        this.combustible = combustible;
+        this.idCliente = idCliente;
+        setFecha(fecha);
+        setCombustible(combustible);
+        setImporte(importe);
+        setIdentificador(identificador);
+        setLitros(litros);
     }
 
     public int getIdentificador() {
@@ -37,16 +43,23 @@ public class PagosDeRepostajes {
         return idCliente;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
-        if (fecha== null){
-            System.out.println("La fecha indicada esta en blanco se pondra la de hoy");
-            this.fecha= new Date();
+    public void setFecha(String fechaPago) {
+        boolean comprobacion = false;
+        while(comprobacion == false){
+            try{
+                this.fecha = LocalDate.parse(fechaPago, FORMATO_FECHA);
+                comprobacion =true;
+            } catch ( DateTimeParseException errorFormato){
+                System.out.println("La fecha tiene que ser de este formato dd/MM/yyyy");
+                System.out.println("Indicalo de nuevo");
+                fechaPago=sc.nextLine();
+            }
         }
-        this.fecha = fecha;
+
     }
 
     public double getImporte() {
