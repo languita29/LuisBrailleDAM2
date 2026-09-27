@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,54 +6,60 @@ import java.util.Scanner;
 public  class Menu {
     public static void opcionesMenu(){
 
-        FicherosCSV f1 = new FicherosCSV();
+        try {
+            FicherosCSV f1 = new FicherosCSV();
 
-        LinkedList<Clientes> listaClientes = f1.leerClientes();
-        LinkedList<PagosDeRepostajes> listaRepostajes = f1.leerRepostajes();
+            LinkedList<Clientes> listaClientes = f1.leerClientes();
+            LinkedList<PagosDeRepostajes> listaRepostajes = f1.leerRepostajes();
 
-        Scanner sc=new Scanner(System.in);
+            Scanner sc=new Scanner(System.in);
 
-        informacionMenu();
-        int op=0;
-        op=sc.nextInt();
-        while(op!=0){
-            switch(op){
-                case 1:
-                    GestionClientes.altaCliente(listaClientes);
-                    break;
-                case 2:
-
-                    GestionClientes.listarClientes(listaClientes);
-
-                    break;
-                case 3:
-                    System.out.print("Texto que buscar: ");
-                    String palabra=sc.nextLine();
-                    LinkedList<Clientes> clienteEncontrados = GestionClientes.buscarClientes(palabra, listaClientes);
-                    GestionClientes.listarClientes(clienteEncontrados);
-                    break;
-                case 4:
-
-                    GestionRepostaje.procesarPago(listaClientes);
-
-                    break;
-                case 5:
-
-                    GestionRepostaje.consultarPagos();
-
-                    break;
-                default :
-                    System.out.println("nuemero dado invalido vuelva a dar un numero en rango");
-                    op=sc.nextInt();
-            }
             informacionMenu();
+            int op=0;
             op=sc.nextInt();
+            while(op!=0){
+                switch(op){
+                    case 1:
+                        GestionClientes.altaCliente(listaClientes);
+                        break;
+                    case 2:
 
+                        GestionClientes.listarClientes(listaClientes);
+
+                        break;
+                    case 3:
+                        System.out.print("Texto que buscar: ");
+                        String palabra=sc.nextLine();
+                        LinkedList<Clientes> clienteEncontrados = GestionClientes.buscarClientes(palabra, listaClientes);
+                        GestionClientes.listarClientes(clienteEncontrados);
+                        break;
+                    case 4:
+
+                        GestionRepostaje.procesarPago(listaClientes, listaRepostajes);
+
+                        break;
+                    case 5:
+
+                        GestionRepostaje.consultarPagos(listaRepostajes, listaClientes);
+
+                        break;
+                    default :
+                        System.out.println("nuemero dado invalido vuelva a dar un numero en rango");
+                        op=sc.nextInt();
+                }
+                informacionMenu();
+                op=sc.nextInt();
+
+            }
+            System.out.println("Saliendo del programa ... guardando datos.");
+            f1.guardarClientes(listaClientes);
+            f1.guardarRepostajes(listaRepostajes);
+        } catch (IOException e){
+            System.out.println("No se ha podido crear o acceder a los ficheros, comprueba permisos de acceso a ellos.");
         }
-        System.out.println("Saliendo del programa ... guardando datos.");
-        f1.guardarClientes(listaClientes);
-        f1.guardarRepostajes(listaRepostajes);
-     }
+    }
+
+
      public static void informacionMenu(){
          System.out.println("=== GESTION DE GASOLINERA ===");
          System.out.println("1. Dar de alta un cliente");

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class PagosDeRepostajes {
     Scanner sc=new Scanner(System.in);
-    private static int idPagosCont=1;
+    public static int idPagosCont=1;
     private int identificador;
     private int idCliente;
     private LocalDate fecha;

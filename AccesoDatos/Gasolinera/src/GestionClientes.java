@@ -4,8 +4,6 @@ import java.util.*;
 
 public class GestionClientes {
 
-    static FicherosCSV f1=new FicherosCSV();
-
     public static void altaCliente(LinkedList<Clientes> listaClientes){
         Scanner sc = new Scanner(System.in);
 
@@ -21,7 +19,7 @@ public class GestionClientes {
         System.out.println("Indica matricula:");
         matricula = sc.nextLine();
         
-        if (buscarClientes(matricula).isEmpty()){
+        if (buscarClientes(matricula, listaClientes).isEmpty()){
             Clientes c1 = new Clientes(Clientes.contId, nombre,telefono,matricula);
             Clientes.contId ++;
             listaClientes.add(c1);
@@ -56,5 +54,22 @@ public class GestionClientes {
             }
         }
         return clienteEncontrados;
+    }
+
+    public static String nombreCliente(LinkedList<Clientes> listaClientes, int id){
+
+        Iterator<Clientes> iterador = listaClientes.iterator();
+        boolean encontrado = false;
+        String nomCliente = null;
+
+        while(iterador.hasNext() && encontrado == false){
+            Clientes c1 = iterador.next();
+            if(c1.getIndentificador() == id){
+                nomCliente = c1.getNombre();
+                encontrado = true;
+            }
+        }
+
+        return nomCliente;
     }
 }
