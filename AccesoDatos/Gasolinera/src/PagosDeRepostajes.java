@@ -48,17 +48,22 @@ public class PagosDeRepostajes {
     }
 
     public void setFecha(String fechaPago) {
-        boolean comprobacion = false;
-        while(comprobacion == false){
-            try{
-                this.fecha = LocalDate.parse(fechaPago, FORMATO_FECHA);
-                comprobacion =true;
-            } catch ( DateTimeParseException errorFormato){
-                System.out.println("La fecha tiene que ser de este formato dd/MM/yyyy");
-                System.out.println("Indicalo de nuevo");
-                fechaPago=sc.nextLine();
+        if(fechaPago == ""){
+            this.fecha = LocalDate.now();
+        } else {
+            boolean comprobacion = false;
+            while(comprobacion == false){
+                try{
+                    this.fecha = LocalDate.parse(fechaPago, FORMATO_FECHA);
+                    comprobacion =true;
+                } catch ( DateTimeParseException errorFormato){
+                    System.out.println("La fecha tiene que ser de este formato dd/MM/yyyy");
+                    System.out.println("Indicalo de nuevo");
+                    fechaPago=sc.nextLine();
+                }
             }
         }
+
 
     }
 

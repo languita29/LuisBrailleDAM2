@@ -25,14 +25,16 @@ public class GestionRepostaje {
                 Clientes c1 = iterador.next();
                 if(c1.getIndentificador() == id){
                     System.out.println("Fecha (dd/MM/aaaa; vacío para hoy): ");
+                    sc.nextLine();
                     String fecha=sc.nextLine();
                     System.out.println("Importe (€): ");
                     double importe=sc.nextDouble();
                     System.out.println("Litros: ");
                     double litros=sc.nextDouble();
                     System.out.println("Combustible: ");
-
+                    sc.nextLine();
                     String combustible=sc.nextLine();
+
                     PagosDeRepostajes p1 = new PagosDeRepostajes(PagosDeRepostajes.idPagosCont,id,fecha, importe,litros,combustible);
                     listaRepostajes.add(p1);
                     System.out.println("Pago "+PagosDeRepostajes.idPagosCont+"registrado para "+ c1.getNombre()+": "+importe);
