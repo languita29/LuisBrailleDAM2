@@ -5,13 +5,13 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Scanner;
 
-public class PagosDeRepostajes {
+public class PagosDeRepostajes implements Comparable<PagosDeRepostajes>{
     Scanner sc=new Scanner(System.in);
-    public static int idPagosCont=1;
+    public static int idPagosCont;
     private int identificador;
     private int idCliente;
     private LocalDate fecha;
-    private final DateTimeFormatter FORMATO_FECHA=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public final DateTimeFormatter FORMATO_FECHA=DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private double importe;
     private  double litros;
     private String combustible;
@@ -107,5 +107,14 @@ public class PagosDeRepostajes {
     @Override
     public String toString() {
         return identificador+"\t"+idCliente+"\t"+fecha+"\t"+importe+" €\t"+litros+"\t"+combustible;
+    }
+
+    @Override
+    public int compareTo(PagosDeRepostajes o) {
+        int fecha=o.getFecha().compareTo(this.fecha);
+        if (fecha ==0){
+             fecha=o.getIdentificador()-this.identificador;
+        }
+        return fecha;
     }
 }

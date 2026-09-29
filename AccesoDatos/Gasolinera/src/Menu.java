@@ -11,7 +11,8 @@ public  class Menu {
 
             LinkedList<Clientes> listaClientes = f1.leerClientes();
             LinkedList<PagosDeRepostajes> listaRepostajes = f1.leerRepostajes();
-
+            GestionClientes.ultimoId(listaClientes);
+            GestionRepostaje.ultimoId(listaRepostajes);
             Scanner sc=new Scanner(System.in);
 
             informacionMenu();
@@ -29,6 +30,7 @@ public  class Menu {
                         break;
                     case 3:
                         System.out.print("Texto que buscar: ");
+                        sc.nextLine();
                         String palabra=sc.nextLine();
                         LinkedList<Clientes> clienteEncontrados = GestionClientes.buscarClientes(palabra, listaClientes);
                         GestionClientes.listarClientes(clienteEncontrados);

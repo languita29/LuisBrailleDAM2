@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -55,7 +56,7 @@ public class GestionRepostaje {
             System.out.println("No hay pagos registrados.");
         } else {
             System.out.println("ID\tCLIENTE\tFECHA\tIMPORTE\tLITROS\tCOMBUSTIBLE");
-
+            Collections.sort(listaRepostajes);
             for (PagosDeRepostajes pagos : listaRepostajes){
                 String nombre = GestionClientes.nombreCliente(listaClientes, pagos.getIdCliente());
                 if(nombre!=null){
@@ -63,5 +64,13 @@ public class GestionRepostaje {
                 }
             }
         }
+    }
+    public  static void ultimoId(LinkedList<PagosDeRepostajes>lista){
+       int id=1;
+       for (PagosDeRepostajes p1:lista){
+           id = Math.max(id, p1.getIdentificador());
+       }
+
+       PagosDeRepostajes.idPagosCont=id +1;
     }
 }

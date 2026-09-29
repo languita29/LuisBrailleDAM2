@@ -9,19 +9,26 @@ public class FicherosCSV implements Ficheros{
     Path directorio;
     Path clientes;
     Path pagos;
+    final String SEPARACION="";
+    final String FINAL=";";
+
 
     public FicherosCSV() throws IOException {
         directorio = Path.of("datos");
-
-        try {
-            Files.createDirectory(directorio);
-
-        } catch (FileAlreadyExistsException e) {
-            System.out.println("Directorio "+directorio+" ya existe.");
-        }
-
         clientes = directorio.resolve("clientes.csv");
         pagos = directorio.resolve("pagos.csv");
+
+        if(!Files.exists(directorio)){
+            Files.createDirectories(directorio);
+        }
+        if(!Files.exists(clientes)){
+            Files.createFile(clientes);
+        }
+        if(!Files.exists(pagos)){
+            Files.createFile(pagos);
+        }
+
+
 
 
     }
@@ -37,8 +44,8 @@ public class FicherosCSV implements Ficheros{
             String linea = lectura.readLine();
 
             while (linea != null) {
-
-                String[] array = linea.split(";");
+                linea = linea.substring(linea.indexOf(FINAL));
+                String[] array = linea.split(SEPARACION);
 
                 int id = Integer.parseInt(array[0]);
                 String nombre = array[1];
@@ -69,7 +76,8 @@ public class FicherosCSV implements Ficheros{
             String lineaCliente = lectura.readLine();
 
             while (lineaCliente != null){
-                String[] array = lineaCliente.split(";");
+               lineaCliente= lineaCliente.substring(lineaCliente.indexOf(FINAL));
+                String[] array = lineaCliente.split(SEPARACION);
 
                 int id = Integer.parseInt(array[0]);
                 int idCliente = Integer.parseInt(array[1]);
@@ -96,7 +104,7 @@ public class FicherosCSV implements Ficheros{
             escritura.newLine();
 
             for(Clientes c1 : listaClientes){
-                escritura.write(c1.getIndentificador()+";"+c1.getNombre()+";"+c1.getTelefono()+";"+c1.getMatricula());
+                escritura.write(c1.getIndentificador()+SEPARACION+c1.getNombre()+SEPARACION+c1.getTelefono()+SEPARACION+c1.getMatricula()+FINAL);
                 escritura.newLine();
             }
         } catch (IOException e) {
@@ -111,8 +119,8 @@ public class FicherosCSV implements Ficheros{
             escritura.write("ID;CLIENTE;FECHA;IMPORTE;LITROS;COMBUSTIBLE");
             escritura.newLine();
             for(PagosDeRepostajes p1 : listaRepostajes){
-                String fecha = p1.getFecha().getDayOfMonth()+"/"+p1.getFecha().getMonth()+"/"+p1.getFecha().getYear();
-                escritura.write(p1.getIdentificador()+";"+ p1.getIdCliente()+";"+fecha+";"+p1.getImporte()+";"+p1.getLitros()+";"+p1.getCombustible());
+                String fecha = p1.FORMATO_FECHA.format(p1.getFecha());
+                escritura.write(p1.getIdentificador()+SEPARACION+p1.getIdCliente()+SEPARACION+fecha+SEPARACION+p1.getImporte()+SEPARACION+p1.getLitros()+SEPARACION+p1.getCombustible()+FINAL);
                 escritura.newLine();
             }
         } catch (IOException e) {

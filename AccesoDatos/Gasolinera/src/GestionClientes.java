@@ -23,6 +23,7 @@ public class GestionClientes {
             Clientes c1 = new Clientes(Clientes.contId, nombre,telefono,matricula);
             Clientes.contId ++;
             listaClientes.add(c1);
+            System.out.println("Cliente creado con el id "+c1.getIndentificador());
         } else{
             System.out.println("Ya exite");
         }
@@ -71,5 +72,14 @@ public class GestionClientes {
         }
 
         return nomCliente;
+    }
+    public static void ultimoId(LinkedList <Clientes>lista){
+        int id=1;
+
+        for (Clientes c1: lista){
+            id = Math.max(c1.getIndentificador(), id);
+        }
+
+        Clientes.contId = id + 1;
     }
 }
