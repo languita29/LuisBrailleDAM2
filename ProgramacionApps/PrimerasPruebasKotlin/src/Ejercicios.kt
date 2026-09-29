@@ -4,16 +4,16 @@ fun main() {
     ejercicio03()
     ejercicio04()
     ejercicio05()
-    //ejercicio06()
+    ejercicio06()
 //    ejercicio07()
 }
 fun ejercicio01() {
     var n1=10
     var n2=5
     println("Suma : ${n1+n2}")
-    println("Suma : ${n1-n2}")
-    println("Suma : ${n1*n2}")
-    println("Suma : ${n1/n2}")
+    println("Resta : ${n1-n2}")
+    println("Multiplicacion : ${n1*n2}")
+    println("divisio : ${n1/n2}")
 }
 fun ejercicio02() {
     var nombre = "Lucia"
@@ -52,11 +52,13 @@ fun ejercicio06() {
         b.Buenos Aires
         c.La Habana
         d.Bogota
+        
     """.trimIndent()
     print(op)
     var respuesta=readln()
     while (respuesta!="d"){
-        print(op)
+        println(op)
+        respuesta=readln()
     }
     println("Felicitaciones!")
 }
