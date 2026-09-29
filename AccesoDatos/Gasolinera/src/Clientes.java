@@ -1,3 +1,4 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Clientes implements Comparable<Clientes>{
@@ -10,23 +11,13 @@ public class Clientes implements Comparable<Clientes>{
 
     public Clientes(int indentificador, String nombre, String telefono, String matricula) {
         this.indentificador = indentificador;
-        setNombre(nombre);
-        setTelefono(telefono);
-        setMatricula(matricula);
+        setNombre(nombre.strip());
+        setTelefono(telefono.strip());
+        setMatricula(matricula.strip());
     }
 
     public int getIndentificador() {
         return indentificador;
-    }
-
-    public void setIndentificador(int indentificador) {
-        while (indentificador<0){
-            System.out.println("No valen numeros negativos");
-            System.out.printf("Indica un id nuevo");
-            indentificador=sc.nextInt();
-        }
-          this.indentificador = indentificador;;
-
     }
 
     public String getTelefono() {
@@ -65,8 +56,7 @@ public class Clientes implements Comparable<Clientes>{
             System.out.println("Indica un matricula nuevo");
             matricula=sc.nextLine();
         }
-        //Hay que validar que la matricula no exite ya
-        this.matricula = matricula.toUpperCase().strip();
+        this.matricula = matricula.toUpperCase();
     }
 
     @Override
@@ -76,7 +66,7 @@ public class Clientes implements Comparable<Clientes>{
 
     @Override
     public int compareTo(Clientes o) {
-        int resultado = this.nombre.compareTo(o.getNombre());
+        int resultado = this.nombre.toLowerCase().compareTo(o.getNombre().toLowerCase());
         if(resultado == 0){
             resultado = this.indentificador-o.getIndentificador();
         }

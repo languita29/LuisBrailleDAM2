@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.EOFException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.LinkedList;
 
@@ -9,7 +10,7 @@ public class FicherosCSV implements Ficheros{
     Path directorio;
     Path clientes;
     Path pagos;
-    final String SEPARACION="";
+    final String SEPARACION=",";
     final String FINAL=";";
 
 
@@ -57,12 +58,9 @@ public class FicherosCSV implements Ficheros{
                 listaClientes.add(c1);
                 linea = lectura.readLine();
             }
-        } catch (EOFException eof){
-            eof.getMessage();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error al recuperar los clientes de ficheor. "+e.getMessage());;
         }
-
 
         return listaClientes;
     }
@@ -99,7 +97,7 @@ public class FicherosCSV implements Ficheros{
 
     @Override
     public void guardarClientes( LinkedList<Clientes> listaClientes) {
-        try(BufferedWriter escritura = Files.newBufferedWriter(clientes, StandardOpenOption.CREATE)){
+        try(BufferedWriter escritura = Files.newBufferedWriter(clientes, StandardCharsets.UTF_8, StandardOpenOption.CREATE)){
             escritura.write("ID;NOMBRE;TELEFONO;MATRICULA");
             escritura.newLine();
 
@@ -115,7 +113,7 @@ public class FicherosCSV implements Ficheros{
     @Override
     public void guardarRepostajes( LinkedList<PagosDeRepostajes> listaRepostajes) {
 
-        try(BufferedWriter escritura = Files.newBufferedWriter(pagos, StandardOpenOption.CREATE)){
+        try(BufferedWriter escritura = Files.newBufferedWriter(pagos, StandardCharsets.UTF_8, StandardOpenOption.CREATE)){
             escritura.write("ID;CLIENTE;FECHA;IMPORTE;LITROS;COMBUSTIBLE");
             escritura.newLine();
             for(PagosDeRepostajes p1 : listaRepostajes){

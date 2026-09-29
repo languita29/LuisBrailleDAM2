@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 public  class Menu {
@@ -16,7 +15,7 @@ public  class Menu {
             Scanner sc=new Scanner(System.in);
 
             informacionMenu();
-            int op=0;
+            int op;
             op=sc.nextInt();
             while(op!=0){
                 switch(op){
@@ -32,6 +31,10 @@ public  class Menu {
                         System.out.print("Texto que buscar: ");
                         sc.nextLine();
                         String palabra=sc.nextLine();
+                        while(palabra.isEmpty()){
+                            System.out.println("No puede estar vacía la palabra: ");
+                            palabra = sc.nextLine();
+                        }
                         LinkedList<Clientes> clienteEncontrados = GestionClientes.buscarClientes(palabra, listaClientes);
                         GestionClientes.listarClientes(clienteEncontrados);
                         break;
@@ -47,7 +50,6 @@ public  class Menu {
                         break;
                     default :
                         System.out.println("nuemero dado invalido vuelva a dar un numero en rango");
-                        op=sc.nextInt();
                 }
                 informacionMenu();
                 op=sc.nextInt();

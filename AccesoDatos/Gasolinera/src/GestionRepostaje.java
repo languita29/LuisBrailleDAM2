@@ -57,10 +57,11 @@ public class GestionRepostaje {
         } else {
             System.out.println("ID\tCLIENTE\tFECHA\tIMPORTE\tLITROS\tCOMBUSTIBLE");
             Collections.sort(listaRepostajes);
-            for (PagosDeRepostajes pagos : listaRepostajes){
-                String nombre = GestionClientes.nombreCliente(listaClientes, pagos.getIdCliente());
+            for (PagosDeRepostajes p1 : listaRepostajes){
+                String nombre = GestionClientes.nombreCliente(listaClientes, p1.getIdCliente());
                 if(nombre!=null){
-                    System.out.println(pagos.getIdentificador()+"\t"+nombre+"\t"+pagos.getFecha()+"\t"+pagos.getImporte()+" €\t"+pagos.getLitros()+"\t"+pagos.getCombustible());
+                    String fecha = p1.FORMATO_FECHA.format(p1.getFecha());
+                    System.out.println(p1.getIdentificador()+"\t"+nombre+"\t"+fecha+"\t"+ p1.getImporte()+" €\t"+ p1.getLitros()+"\t"+ p1.getCombustible());
                 }
             }
         }

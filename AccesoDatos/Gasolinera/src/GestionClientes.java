@@ -11,7 +11,6 @@ public class GestionClientes {
         String telefono;
         String matricula;
 
-        System.out.println("Aqui se crea el cliente ");
         System.out.println("Indica nombre:");
         nombre = sc.nextLine();
         System.out.println("Indica telefono:");
@@ -25,7 +24,7 @@ public class GestionClientes {
             listaClientes.add(c1);
             System.out.println("Cliente creado con el id "+c1.getIndentificador());
         } else{
-            System.out.println("Ya exite");
+            System.out.println("Ya exite el cliente.");
         }
 
     }
@@ -37,7 +36,8 @@ public class GestionClientes {
 
        if (listaClientes.isEmpty()){
            System.out.println("No exite el cliente");
-       }else{//ordenar lista
+       }else{
+           Collections.sort(listaClientes);
            System.out.println("ID\tNOMBRE\tTELEFONO\tMATRICULA\t");
            for(Clientes c1: listaClientes){
 
