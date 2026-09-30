@@ -9,7 +9,7 @@ public class PagosDeRepostajes implements Comparable<PagosDeRepostajes>{
     Scanner sc=new Scanner(System.in);
     public static int idPagosCont;
     private int identificador;
-    private int idCliente;
+    private final int idCliente;
     private LocalDate fecha;
     public final DateTimeFormatter FORMATO_FECHA=DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private double importe;
@@ -17,12 +17,11 @@ public class PagosDeRepostajes implements Comparable<PagosDeRepostajes>{
     private String combustible;
 
     public PagosDeRepostajes(int identificador, int idCliente, String fecha, double importe, double litros, String combustible) {
-        setIdentificador(identificador);
+        this.identificador= identificador;
         this.idCliente = idCliente;
         setFecha(fecha);
         setCombustible(combustible);
         setImporte(importe);
-        setIdentificador(identificador);
         setLitros(litros);
     }
 
@@ -30,14 +29,6 @@ public class PagosDeRepostajes implements Comparable<PagosDeRepostajes>{
         return identificador;
     }
 
-    public void setIdentificador(int identificador) {
-        while (identificador<0){
-            System.out.println("el numero dado es negativo vuelve a dar otro ");
-            sc.nextLine();
-            identificador=sc.nextInt();
-        }
-        this.identificador = identificador;
-    }
 
     public int getIdCliente() {
         return idCliente;

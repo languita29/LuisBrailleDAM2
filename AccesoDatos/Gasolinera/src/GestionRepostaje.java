@@ -22,7 +22,7 @@ public class GestionRepostaje {
             Iterator<Clientes> iterador = listaClientes.iterator();
             boolean clienteEncontrado = false;
 
-            while(iterador.hasNext() && clienteEncontrado == false){
+            while(iterador.hasNext() && !clienteEncontrado){
                 Clientes c1 = iterador.next();
                 if(c1.getIndentificador() == id){
                     System.out.println("Fecha (dd/MM/aaaa; vacío para hoy): ");
