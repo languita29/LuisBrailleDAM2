@@ -24,18 +24,38 @@ public class GestionRepostaje {
 
             while(iterador.hasNext() && !clienteEncontrado){
                 Clientes c1 = iterador.next();
-                if(c1.getIndentificador() == id){
-                    System.out.println("Fecha (dd/MM/aaaa; vacío para hoy): ");
+                if(c1.getIdentificador() == id){
                     sc.nextLine();
+                    System.out.println("Fecha (dd/MM/aaaa; vacío para hoy): ");
                     String fecha=sc.nextLine();
                     System.out.println("Importe (€): ");
                     double importe=sc.nextDouble();
+                    while(importe<0 || !numDecimalesValido(importe)){
+                        if(numDecimalesValido(importe)) { //si es valdo entonces es negativo
+                            System.out.println("El importe indicado es negativo por favor vuelva a indicarlo");
+                        }else{ //si no es valido pedimos decimales correctos
+                            System.out.println("Solo se pueden introducir máximo dos decimales en el importe: ");
+                        }
+                        importe=sc.nextDouble(); //pedimos dato para las dos casuísticas.
+                    }
                     System.out.println("Litros: ");
                     double litros=sc.nextDouble();
-                    System.out.println("Combustible: ");
+                    while(litros<0 || !numDecimalesValido(litros)){
+                        if(numDecimalesValido(litros)) { //si es valdo entonces es negativo
+                            System.out.println("Los litros indicado es negativo por favor vuelva a indicarlo");
+                        }else{ //si no es valido pedimos decimales correctos
+                            System.out.println("Solo se pueden introducir máximo dos decimales en los litros: ");
+                        }
+                        litros=sc.nextDouble(); //pedimos dato para las dos casuísticas.
+                    }
                     sc.nextLine();
+                    System.out.println("Combustible: ");
                     String combustible=sc.nextLine();
-
+                    while (combustible.isBlank()){
+                        System.out.println("Combustible: ");
+                        sc.nextLine();
+                         combustible=sc.nextLine();
+                    }
                     PagosDeRepostajes p1 = new PagosDeRepostajes(PagosDeRepostajes.idPagosCont,id,fecha, importe,litros,combustible);
                     listaRepostajes.add(p1);
                     System.out.println("Pago "+PagosDeRepostajes.idPagosCont+"registrado para "+ c1.getNombre()+": "+importe);
@@ -44,10 +64,9 @@ public class GestionRepostaje {
                 }
             }
 
-            if(clienteEncontrado == false){
+            if(!clienteEncontrado){
                 System.out.println("No se ha encontrado el cliente.");
             }
-
         }
     }
 
@@ -73,5 +92,9 @@ public class GestionRepostaje {
        }
 
        PagosDeRepostajes.idPagosCont=id +1;
+    }
+
+    public static boolean numDecimalesValido(double num){
+        return  Math.round(num * 100)/100.0 == num;
     }
 }

@@ -20,9 +20,10 @@ public class PagosDeRepostajes implements Comparable<PagosDeRepostajes>{
         this.identificador= identificador;
         this.idCliente = idCliente;
         setFecha(fecha);
-        setCombustible(combustible);
-        setImporte(importe);
-        setLitros(litros);
+       this.combustible=combustible;
+       this.importe=importe;
+       this.litros=litros;
+
     }
 
     public int getIdentificador() {
@@ -39,11 +40,11 @@ public class PagosDeRepostajes implements Comparable<PagosDeRepostajes>{
     }
 
     public void setFecha(String fechaPago) {
-        if(fechaPago == ""){
+        if(fechaPago.isBlank()){
             this.fecha = LocalDate.now();
         } else {
             boolean comprobacion = false;
-            while(comprobacion == false){
+            while(!comprobacion){
                 try{
                     this.fecha = LocalDate.parse(fechaPago, FORMATO_FECHA);
                     comprobacion =true;
@@ -63,10 +64,6 @@ public class PagosDeRepostajes implements Comparable<PagosDeRepostajes>{
     }
 
     public void setImporte(double importe) {
-        while (importe<0){//no se como hacer que sea decimal aún
-            System.out.println("el importe dado no es positivo indique uno nuevo");
-            importe=sc.nextDouble();
-        }
         this.importe = importe;
     }
 
@@ -75,11 +72,6 @@ public class PagosDeRepostajes implements Comparable<PagosDeRepostajes>{
     }
 
     public void setLitros(double litros) {
-        while (litros<0){//no se como hacer que sea decimal aún
-            System.out.println("la cantidad de litros dada no es positiva indique uno nuevo");
-            sc.nextLine();
-            litros=sc.nextDouble();
-        }
         this.litros = litros;
     }
 
@@ -88,10 +80,6 @@ public class PagosDeRepostajes implements Comparable<PagosDeRepostajes>{
     }
 
     public void setCombustible(String combustible) {
-        while (combustible == "" || combustible == null){//no se como hacer que sea decimal aún
-            System.out.println("la cantidad de combustible no esta escrita por favor vuelva a intentarlo");
-            combustible=sc.nextLine();
-        }
         this.combustible = combustible;
     }
 

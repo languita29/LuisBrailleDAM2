@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.EOFException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -45,7 +44,7 @@ public class FicherosCSV implements Ficheros{
             String linea = lectura.readLine();
 
             while (linea != null) {
-                linea = linea.substring(linea.indexOf(FINAL));
+                linea = linea.substring(0, linea.indexOf(FINAL));
                 String[] array = linea.split(SEPARACION);
 
                 int id = Integer.parseInt(array[0]);
@@ -71,11 +70,11 @@ public class FicherosCSV implements Ficheros{
         try (BufferedReader lectura = Files.newBufferedReader(pagos)) {
             lectura.readLine();
 
-            String lineaCliente = lectura.readLine();
+            String lineaPago = lectura.readLine();
 
-            while (lineaCliente != null){
-               lineaCliente= lineaCliente.substring(lineaCliente.indexOf(FINAL));
-                String[] array = lineaCliente.split(SEPARACION);
+            while (lineaPago != null){
+               lineaPago = lineaPago.substring(0, lineaPago.indexOf(FINAL));
+                String[] array = lineaPago.split(SEPARACION);
 
                 int id = Integer.parseInt(array[0]);
                 int idCliente = Integer.parseInt(array[1]);
@@ -87,7 +86,7 @@ public class FicherosCSV implements Ficheros{
                 PagosDeRepostajes p1 = new PagosDeRepostajes(id, idCliente, fecha, importe, litros, combustible);
                 listaRepostajes.add(p1);
 
-                lineaCliente = lectura.readLine();
+                lineaPago = lectura.readLine();
             }
         } catch (IOException e){
             System.out.println("Fallo en leerRepostajes: "+e.getMessage());
@@ -99,11 +98,9 @@ public class FicherosCSV implements Ficheros{
     public void guardarClientes( LinkedList<Clientes> listaClientes) {
         try(BufferedWriter escritura = Files.newBufferedWriter(clientes, StandardCharsets.UTF_8, StandardOpenOption.CREATE)){
             escritura.write("ID;NOMBRE;TELEFONO;MATRICULA");
-            escritura.newLine();
-
             for(Clientes c1 : listaClientes){
-                escritura.write(c1.getIndentificador()+SEPARACION+c1.getNombre()+SEPARACION+c1.getTelefono()+SEPARACION+c1.getMatricula()+FINAL);
                 escritura.newLine();
+                escritura.write(c1.getIdentificador()+SEPARACION+c1.getNombre()+SEPARACION+c1.getTelefono()+SEPARACION+c1.getMatricula()+FINAL);
             }
         } catch (IOException e) {
             System.out.println("Error en guardarClientes: "+e.getMessage());;
@@ -114,12 +111,12 @@ public class FicherosCSV implements Ficheros{
     public void guardarRepostajes( LinkedList<PagosDeRepostajes> listaRepostajes) {
 
         try(BufferedWriter escritura = Files.newBufferedWriter(pagos, StandardCharsets.UTF_8, StandardOpenOption.CREATE)){
-            escritura.write("ID;CLIENTE;FECHA;IMPORTE;LITROS;COMBUSTIBLE");
-            escritura.newLine();
+            escritura.write("ID"+SEPARACION+"CLIENTE"+SEPARACION+"FECHA"+SEPARACION+"IMPORTE"+SEPARACION+"LITROS"+SEPARACION+"COMBUSTIBLE"+FINAL);
+
             for(PagosDeRepostajes p1 : listaRepostajes){
                 String fecha = p1.FORMATO_FECHA.format(p1.getFecha());
-                escritura.write(p1.getIdentificador()+SEPARACION+p1.getIdCliente()+SEPARACION+fecha+SEPARACION+p1.getImporte()+SEPARACION+p1.getLitros()+SEPARACION+p1.getCombustible()+FINAL);
                 escritura.newLine();
+                escritura.write(p1.getIdentificador()+SEPARACION+p1.getIdCliente()+SEPARACION+fecha+SEPARACION+p1.getImporte()+SEPARACION+p1.getLitros()+SEPARACION+p1.getCombustible()+FINAL);
             }
         } catch (IOException e) {
             System.out.println("Error en guardarRepostajes: "+e.getMessage());;

@@ -36,18 +36,9 @@ public  class Menu {
 
                         break;
                     case 3:
-                        System.out.print("Texto que buscar: ");
-                        sc.nextLine();
-                        //le pedimos que indique que palabra quiere buscar
-                        String palabra=sc.nextLine();
-                        //comprobamos que la palabra no este vacia y si pasa pues no paramos de pedirla
-                        while(palabra.isEmpty()){
-                            System.out.println("No puede estar vacía la palabra: ");
-                            palabra = sc.nextLine();
-                        }
 
-                        LinkedList<Clientes> clienteEncontrados = GestionClientes.buscarClientes(palabra, listaClientes);
-                        GestionClientes.listarClientes(clienteEncontrados);
+                       GestionClientes.buscarClientes( listaClientes);
+
                         break;
                     case 4:
 

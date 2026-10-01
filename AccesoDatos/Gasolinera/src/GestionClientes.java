@@ -3,28 +3,52 @@ import jdk.swing.interop.SwingInterOpUtils;
 import java.util.*;
 
 public class GestionClientes {
-
+   static Scanner  sc = new Scanner(System.in);
     public static void altaCliente(LinkedList<Clientes> listaClientes){
-        Scanner sc = new Scanner(System.in);
+
 
         String nombre;
         String telefono;
         String matricula;
+        System.out.println("indica un nombre");
+        nombre=sc.nextLine();
 
-        System.out.println("Indica nombre:");
-        nombre = sc.nextLine();
-        System.out.println("Indica telefono:");
-        telefono = sc.nextLine();
-        System.out.println("Indica matricula:");
-        matricula = sc.nextLine();
-        
-        if (buscarClientes(matricula, listaClientes).isEmpty()){
+        while(nombre==null || nombre.isBlank()){
+            System.out.println("El nombre no ha sido indicado vuelva a escribirlo");
+            nombre=sc.nextLine().trim();
+        }
+        System.out.println("indica un telefono");
+        telefono=sc.nextLine();
+
+        while(telefono==null || telefono.isBlank()){
+            System.out.println("El telefono no ha sido indicado vuelva a escribirlo");
+            telefono=sc.nextLine().trim();
+        }
+
+        System.out.println("indica una matricula");
+        matricula=sc.nextLine();
+        while(matricula==null || matricula.isBlank()){
+            System.out.println("La matricula no ha sido indicado vuelva a escribirlo");
+            matricula=sc.nextLine();
+        }
+        Iterator<Clientes> iterador=listaClientes.iterator();
+
+        boolean existe = false;
+
+        while(iterador.hasNext() && !existe){
+            Clientes c1=iterador.next();
+            if(c1.getMatricula().equals(matricula.toUpperCase())){
+                existe = true;
+            }
+        }
+
+        if (!existe){
             Clientes c1 = new Clientes(Clientes.contId, nombre,telefono,matricula);
             Clientes.contId ++;
             listaClientes.add(c1);
-            System.out.println("Cliente creado con el id "+c1.getIndentificador());
+            System.out.println("Cliente creado con el id "+c1.getIdentificador());
         } else{
-            System.out.println("Ya exite el cliente.");
+            System.out.println("Ya exite cliente con esa matricula.");
         }
 
     }
@@ -35,7 +59,7 @@ public class GestionClientes {
     public static void listarClientes(LinkedList<Clientes> listaClientes){
 
        if (listaClientes.isEmpty()){
-           System.out.println("No exite el cliente");
+           System.out.println("No hay clientes en la lista.");
        }else{
            Collections.sort(listaClientes);
            System.out.println("ID\tNOMBRE\tTELEFONO\tMATRICULA\t");
@@ -45,16 +69,22 @@ public class GestionClientes {
            }
        }
     }
-    public static LinkedList<Clientes> buscarClientes(String palabra, LinkedList<Clientes> lista){
-
-        palabra=palabra.toLowerCase();
-        LinkedList<Clientes> clienteEncontrados=new LinkedList<>();
-        for (Clientes c1:lista){
-            if(c1.getNombre().toLowerCase().contains(palabra) || c1.getMatricula().toLowerCase().contains(palabra) || c1.getTelefono().toLowerCase().contains(palabra)){
-                clienteEncontrados.add(c1);
+    public static void buscarClientes(LinkedList<Clientes> lista){
+        LinkedList<Clientes>listaEncontrados=new LinkedList<>();
+        System.out.println("indica la palabra que quieres encontrar");
+        String palabra=sc.nextLine();
+        while (palabra==null||palabra.isBlank()){
+            System.out.println("indica la palabra que quieres encontrar");
+             palabra=sc.nextLine();
+        }
+        for(Clientes c1:lista){
+            if(c1.getNombre().toLowerCase().contains(palabra.toLowerCase())||c1.getMatricula().toLowerCase().contains(palabra.toLowerCase())||c1.getTelefono().toLowerCase().contains(palabra.toLowerCase())){
+                listaEncontrados.add(c1);
             }
         }
-        return clienteEncontrados;
+
+        listarClientes(listaEncontrados);
+
     }
 
     public static String nombreCliente(LinkedList<Clientes> listaClientes, int id){
@@ -65,7 +95,7 @@ public class GestionClientes {
 
         while(iterador.hasNext() && encontrado == false){
             Clientes c1 = iterador.next();
-            if(c1.getIndentificador() == id){
+            if(c1.getIdentificador() == id){
                 nomCliente = c1.getNombre();
                 encontrado = true;
             }
@@ -77,7 +107,7 @@ public class GestionClientes {
         int id=1;
 
         for (Clientes c1: lista){
-            id = Math.max(c1.getIndentificador(), id);
+            id = Math.max(c1.getIdentificador(), id);
         }
 
         Clientes.contId = id + 1;
