@@ -7,7 +7,7 @@ public class Menu{
     static Scanner sc=new Scanner(System.in);
     public static void elegirOpcion(){
         try {
-            FicherosCSV f = new FicherosCSV();
+            GestionFicherosCSV f = new GestionFicherosCSV();
             LinkedList<Clientes> listaClientes= f.leerClientes();
             LinkedList<PagosRepostaje> listaPagos = f.leerPagos();
 
