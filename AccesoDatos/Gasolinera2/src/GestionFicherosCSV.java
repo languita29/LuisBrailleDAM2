@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.LinkedList;
 
-public class GestionFicherosCSV implements InterfazCSV {
+public class GestionFicherosCSV implements InterfazFicheros {
     Path directorio;
     Path clientes;
     Path pagos;

@@ -1,102 +1,94 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.LinkedList;
 
-public class GestionFicherosJSON implements InterfazJSON{
-
+public class GestionFicherosJSON implements InterfazFicheros{
     Path directorio;
-    Path clientes;
-    Path pagos;
+    Path fichClientes;
+    Path fichPagos;
 
     public GestionFicherosJSON() throws IOException {
-        this.directorio = Path.of("datosjson");
-        this.clientes = directorio.resolve("clientes.json");
-        this.pagos = directorio.resolve("pagos.json");
+        this.directorio = Path.of("datosJSON");
+        this.fichClientes = directorio.resolve("clientes.json");
+        this.fichPagos = directorio.resolve("pagos.json");
 
         if(!Files.exists(directorio)){
             Files.createDirectories(directorio);
         }
-        if(!Files.exists(clientes)){
-            Files.createFile(clientes);
-            escribirCabecera(clientes);
+        if(!Files.exists(fichClientes)){
+            Files.createFile(fichClientes);
         }
-        if(!Files.exists(pagos)){
-            Files.createFile(pagos);
+        if(!Files.exists(fichPagos)){
+            Files.createFile(fichPagos);
         }
     }
 
-    public void  escribirCabecera(Path fichero){
-        try (BufferedWriter escribir = Files.newBufferedWriter(fichero, StandardCharsets.UTF_8, StandardOpenOption.CREATE)){
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public String limpiar(String cadena){
+        return cadena.split(":")[1].trim().replace("\"", "");
     }
 
     @Override
     public LinkedList<Clientes> leerClientes() {
-        LinkedList<Clientes>listaClientes=new LinkedList<>();
-        try (BufferedReader leer=Files.newBufferedReader(clientes)){
+        LinkedList<Clientes> listaClientes = new LinkedList<>();
+        try (BufferedReader leer = Files.newBufferedReader(fichClientes)){
             leer.readLine();
             leer.readLine();
-            String cliente=leer.readLine();
-            while(cliente!=null){
-                cliente= cliente.substring(1,cliente.indexOf("}"));
-                String[] arrayCliente= cliente.split(",");
-                Clientes c1=new Clientes(Integer.parseInt(arrayCliente[0].split(":")[1]),arrayCliente[1].split(":")[1],arrayCliente[2].split(":")[1],arrayCliente[3].split(":")[1]);
+
+            String lineaCliente = leer.readLine();
+
+            while(lineaCliente!=null&&lineaCliente.contains("]")){
+                lineaCliente = lineaCliente.substring(1, lineaCliente.indexOf("}"));
+                String[] arrayCliente = lineaCliente.split(",");
+                Clientes c1 = new Clientes(Integer.parseInt(limpiar(arrayCliente[0])), limpiar(arrayCliente[1]), limpiar(arrayCliente[2]), limpiar(arrayCliente[3]));
                 listaClientes.add(c1);
-                cliente=leer.readLine();
+                lineaCliente = leer.readLine();
             }
         } catch (IOException e) {
-            System.out.println("Error en la lectura de clientes del fichero. "+e.getMessage());
+            System.out.println("No se ha encontrado ningun cliente en el fichero");
         }
         return listaClientes;
     }
 
     @Override
-    public void escribirClientes(Clientes c1) {
-        try (BufferedWriter escribir=Files.newBufferedWriter(clientes, StandardCharsets.UTF_8, StandardOpenOption.APPEND)){
-            escribir.newLine();
-            escribir.write("{\"id\": "+c1.getId()+",\"nombre\": \""+c1.getNombre()+"\",\"telefono\": \""+c1.getTelefono()+"\",\"matricula\": \""+c1.getMatricula()+"\"}");
-        } catch (IOException e) {
-            System.out.println("Error en la escritura de clientes del fichero. "+e.getMessage());
-        }
-    }
-
-    @Override
     public LinkedList<PagosRepostaje> leerPagos() {
         LinkedList<PagosRepostaje>listaPagos=new LinkedList<>();
-        try (BufferedReader leer=Files.newBufferedReader(pagos)){
+        try (BufferedReader leer=Files.newBufferedReader(fichPagos)){
             leer.readLine();
             leer.readLine();
-            String pagos=leer.readLine();
-            while(pagos!=null){
-                pagos=pagos.substring(1,pagos.indexOf("}"));
-                String[] arrayPagos= pagos.split(",");
-                PagosRepostaje p1=new PagosRepostaje(Integer.parseInt(arrayPagos[0].split(":")[1]),Integer.parseInt(arrayPagos[1].split(":")[1]),arrayPagos[2].split(":")[1],Double.parseDouble(arrayPagos[3].split(":")[1]),Double.parseDouble(arrayPagos[4].split(":")[1]),arrayPagos[5].split(":")[1]);
+            String cadena=leer.readLine();
+            while(cadena!=null && cadena.contains("}")){
+                String[] arrayCadena=cadena.split(",");
+                PagosRepostaje p1=new PagosRepostaje(Integer.parseInt(limpiar(arrayCadena[0])),Integer.parseInt(limpiar(arrayCadena[1])),limpiar(arrayCadena[2]),Double.parseDouble(limpiar(arrayCadena[3])), Double.parseDouble(limpiar(arrayCadena[4])), limpiar(arrayCadena[5]));
                 listaPagos.add(p1);
-                pagos=leer.readLine();
+                cadena=leer.readLine();
             }
         } catch (IOException e) {
-            System.out.println("Error en la lectura de pagos del fichero. "+e.getMessage());
+            System.out.println("No hay ningun pago creado en clientes");
         }
         return listaPagos;
     }
 
     @Override
-    public void escribirPagos(PagosRepostaje p1) {
-        try (BufferedWriter escribir=Files.newBufferedWriter(pagos, StandardCharsets.UTF_8, StandardOpenOption.APPEND)){
-                escribir.newLine();
-                escribir.write("{ \"id\" :"+p1.getId()+",\"clienteID\" :"+p1.getIDCLIENTE()+",\"fecha\": \""+p1.getFecha() +"\",\"importe\": "+p1.getImporte()+",\"litros\": "+p1.getLitros()+",\"combustible\": \""+p1.getCombustible()+"\"},");
-        } catch (IOException e) {
-            System.out.println("Error en la escritura de pagos del fichero. "+e.getMessage());
+    public void escribirClientes(LinkedList<Clientes> listaClientes) {
 
-        }
+    }
+
+    @Override
+    public void escribirPagos(LinkedList<PagosRepostaje> listaPagos) {
+
+    }
+
+    @Override
+    public void escribirCliente(Clientes c1) {
+
+    }
+
+    @Override
+    public void escribirPago(PagosRepostaje p1) {
+
     }
 }
