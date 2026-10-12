@@ -7,27 +7,29 @@ public class Menu{
     static Scanner sc=new Scanner(System.in);
     public static void elegirOpcion(){
         try {
-            GestionFicherosCSV f = new GestionFicherosCSV();
-            LinkedList<Clientes> listaClientes= f.leerClientes();
-            LinkedList<PagosRepostaje> listaPagos = f.leerPagos();
-
+            GestionFicherosJSON json = new GestionFicherosJSON();
             int op= mostraInfo();
             while (op!=0){
                 switch (op){
                     case 1->{
-
+                        LinkedList<Clientes> listaClientes = json.leerClientes();
                         GestionClientes.altaCliente(listaClientes);
-
                     }
                     case 2-> {
+                        LinkedList<Clientes> listaClientes = json.leerClientes();
                         GestionClientes.listarClientes(listaClientes);
                     }
                     case 3->{
+                        LinkedList<Clientes> listaClientes = json.leerClientes();
                         GestionClientes.buscClientes(listaClientes);
                     }
                     case 4->{
+                        LinkedList<Clientes> listaClientes = json.leerClientes();
+                        LinkedList<PagosRepostaje> listaPagos= json.leerPagos();
                         GestionPagos.pago(listaClientes, listaPagos);
                     }case 5->{
+                        LinkedList<Clientes> listaClientes = json.leerClientes();
+                        LinkedList<PagosRepostaje> listaPagos= json.leerPagos();
                         GestionPagos.listarPagos(listaClientes, listaPagos);
                     }case 0->{
                         System.out.println("Hasta pronto.");
@@ -40,9 +42,6 @@ public class Menu{
 
                 op = Menu.mostraInfo();
             }
-
-            f.escribirClientes(listaClientes);
-            f.escribirPagos(listaPagos);
 
         } catch (IOException e) {
             System.out.println("Ha sucedido un error al crear los ficheros.");

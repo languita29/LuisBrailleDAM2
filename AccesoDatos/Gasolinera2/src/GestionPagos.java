@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +10,7 @@ public class GestionPagos {
 
     static Scanner sc=new Scanner(System.in);
 
-    public static void pago(LinkedList<Clientes> listaClientes, LinkedList<PagosRepostaje> listaPagos){
+    public static void pago(LinkedList<Clientes> listaClientes, LinkedList<PagosRepostaje> listaPagos) throws IOException {
 
         int id;
         if(listaClientes.isEmpty()){
@@ -67,7 +68,8 @@ public class GestionPagos {
                 }
 
                 PagosRepostaje p1 = new PagosRepostaje(ultimoIdPagos(listaPagos), id, fecha, importe, litros, combustible);
-                listaPagos.add(p1);
+                GestionFicherosJSON json = new GestionFicherosJSON();
+                json.escribirPago(p1);
                 System.out.println("Pago "+p1.getId()+" registrado para "+consultaNombreCliente(listaClientes, p1.getIDCLIENTE())+": "+importe+" €.");
             } else {
                 System.out.println("Cliente seleccionado no existe.");

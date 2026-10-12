@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -6,7 +7,7 @@ public class GestionClientes {
 
     static Scanner sc=new Scanner(System.in);
 
-    public static void altaCliente(LinkedList<Clientes>listaClientes){
+    public static void altaCliente(LinkedList<Clientes>listaClientes) throws IOException {
         String nombre;
         String telefono;
         String matricula;
@@ -41,7 +42,8 @@ public class GestionClientes {
 
         if(!existeMatricula){
             Clientes c1 = new Clientes(ultimoId(listaClientes),nombre,telefono,matricula);
-            listaClientes.add(c1);
+            GestionFicherosJSON json = new GestionFicherosJSON();
+            json.escribirCliente(c1);
             System.out.println("Creado cliente con id "+c1.getId());
         }
     }

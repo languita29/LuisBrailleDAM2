@@ -27,6 +27,13 @@ public class GestionFicherosCSV implements InterfazFicheros {
         }
     }
 
+    public GestionFicherosCSV(Path directorio, Path clientes, Path pagos) {
+        this.directorio = directorio;
+        this.clientes = clientes;
+        this.pagos = pagos;
+    }
+
+
     @Override
     public LinkedList<Clientes> leerClientes() {
         LinkedList<Clientes>listaClientes=new LinkedList<>();
@@ -91,5 +98,20 @@ public class GestionFicherosCSV implements InterfazFicheros {
             System.out.println("Error en la escritura de pagos del fichero. "+e.getMessage());
 
         }
+    }
+
+    @Override
+    public void escribirCliente(Clientes c1) {
+       LinkedList<Clientes> listaClientes=leerClientes();
+       listaClientes.add(c1);
+       escribirClientes(listaClientes);
+    }
+
+    @Override
+    public void escribirPago(PagosRepostaje p1) {
+        LinkedList<PagosRepostaje>listaPagos=leerPagos();
+        listaPagos.add(p1);
+        escribirPagos(listaPagos);
+
     }
 }
