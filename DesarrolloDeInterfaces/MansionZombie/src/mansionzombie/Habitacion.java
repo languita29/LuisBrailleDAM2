@@ -2,28 +2,22 @@
 package mansionzombie;
 
 public class Habitacion {
+    public static int maxHabitaciones;
     private int busqueda;
-    static public int habActual=1;
+    public static int numHabitación = 1;
     private int numZombies;
 
     public Habitacion() {
         this.busqueda = 3;
         this.numZombies = 1;
     }
+
     public int getBusqueda() {
         return busqueda;
     }
 
     public void setBusqueda(int busqueda) {
         this.busqueda = busqueda;
-    }
-
-    public int getHabActual() {
-        return habActual;
-    }
-
-    public void setHabActual(int habActual) {
-        this.habActual = habActual;
     }
 
     public int getNumZombies() {
@@ -36,7 +30,7 @@ public class Habitacion {
 
     @Override
     public String toString() {
-        return "Habitacion{" + "busqueda=" + busqueda + ", habActual=" + habActual + ", numZombies=" + numZombies + '}';
+        return "Habitacion{" + "busqueda=" + busqueda + ", numZombies=" + numZombies + '}';
     }
     
     

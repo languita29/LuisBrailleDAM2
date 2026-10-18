@@ -1,48 +1,64 @@
 
 package mansionzombie;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Menu {
+    static Scanner sc = new Scanner(System.in);
     
-    static Scanner sc=new Scanner(System.in);
-    public static int menuDificultades(){
+    public static void pedirValidar(Habitacion h1, Superviviente s1){
+        boolean salir = false;
         
-        int op;
-        System.out.println("Elige el nivel de dificultad al que te gustaria jugar");
-        System.out.println("1. Fácil: la mansión se supera jugando 5 habitaciones");
-        System.out.println("2. Difícil: la mansión se supera jugando 10 habitaciones");
-        op=sc.nextInt();
-        while (op != 1 && op!= 2) {
-            System.out.println("1. Fácil: la mansión se supera jugando 5 habitaciones");
-            System.out.println("2. Difícil: la mansión se supera jugando 10 habitaciones");
-            op=sc.nextInt(); 
-        }
-        return op;
-        
-    }
-    
-    public static void menuOpciones(Habitacion h1, Superviviente s1){
-        System.out.println("Elija una opción: ");
-        while(h1.getNumZombies()>0 && s1.getVidasRestantes()>0){
-            System.out.println("1. Combatir zombie");
+        while(!salir){
+            mostrarMenu(h1, s1);
             int op = sc.nextInt();
-            while(op != 1){
-                System.out.println("1. Combatir zombie");
-                op = sc.nextInt();
+            
+            if(op == 1 && s1.vivo() && h1.getNumZombies() > 0){
+                System.out.println("Combatiendo...");
+                //combate
+                if(s1.vivo())
+                    h1.setNumZombies(h1.getNumZombies()-1);
+            } else if (op == 2 && s1.vivo()&& h1.getNumZombies()==0&&h1.getBusqueda()>0){
+                System.out.println("Buscando...");                
+                //buqueda
+                h1.setBusqueda(h1.getBusqueda()-1);
+            } else if (op == 3 && s1.vivo() && h1.getNumZombies()==0 && s1.isBotiquin()){
+                System.out.println("Curando ...");
+                //curar
+                s1.setBotiquin(false);
+            } else if (op == 4 && s1.vivo() && Habitacion.numHabitación < Habitacion.maxHabitaciones){
+                System.out.println("Pasando a la siguiente habitación.");
+                salir = true;
+            } else if (op == 4 && s1.vivo() && Habitacion.numHabitación == Habitacion.maxHabitaciones){
+                System.out.println("Saliendo de la mansión.");
+                salir = true;
+            } else {
+                System.out.println("Has indicado una opción incorrecta.");
             }
-            Jugadas.combatir(s1);
-            h1.setNumZombies(h1.getNumZombies()-1);
         }
-        if(h1.getNumZombies()==0 && s1.geth1.getNumZombies() > 0)
         
-    
-    
-    
-    
-    
+        
+        
     }
     
-    
-    
+    public static void mostrarMenu(Habitacion h1, Superviviente s1){
+        System.out.println("Elige una opción:");
+        if(s1.vivo() && h1.getNumZombies() > 0){
+            System.out.println("    1. Combatir");
+        } else {
+            if(s1.vivo()&& h1.getNumZombies()==0&&h1.getBusqueda()>0){
+                System.out.println("    2. Buscar");
+            }
+            if(s1.vivo() && h1.getNumZombies()==0 && s1.isBotiquin()){
+                System.out.println("    3. Curar");
+            }
+            if(s1.vivo() && h1.getNumZombies()==0 && Habitacion.numHabitación < Habitacion.maxHabitaciones){
+                System.out.println("    4. Avanzar a la siguiente habitación");
+            }
+            if(s1.vivo() && h1.getNumZombies()==0 && Habitacion.numHabitación == Habitacion.maxHabitaciones){
+                System.out.println("    4. Salir de la mansión");
+            } 
+        }
+    }
 }

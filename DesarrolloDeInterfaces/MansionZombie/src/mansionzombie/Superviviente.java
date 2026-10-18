@@ -1,20 +1,20 @@
-
 package mansionzombie;
 
-public class Superviviente extends Personaje{
-    private final int VIDAS=20;
+public class Superviviente extends Personaje {
+    private final int MAX_VIDAS = 20;
     private boolean botiquin;
     private int armas;
     private int protecciones;
-
+            
+            
     public Superviviente() {
         super(20, 4);
-        this.botiquin = false;
-        this.armas = 0;
-        this.protecciones = 0;
+        
+        botiquin = false;
+        armas = 0;
+        protecciones = 0;
     }
 
-    
     public boolean isBotiquin() {
         return botiquin;
     }
@@ -38,11 +38,5 @@ public class Superviviente extends Personaje{
     public void setProtecciones(int protecciones) {
         this.protecciones = protecciones;
     }
-
-    @Override
-    public String toString() {
-        return "Superviviente" + "VIDAS=" + VIDAS + ", vidasRestantes=" + getVidasRestantes() + ", puntosAtaque=" + getPuntosAtaque() + ", botiquin=" + botiquin + ", armas=" + armas + ", protecciones=" + protecciones;
-    }
-    
-    
+   
 }
