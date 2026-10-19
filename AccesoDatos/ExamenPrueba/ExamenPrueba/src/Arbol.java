@@ -40,7 +40,14 @@ public class Arbol implements Comparable<Arbol>{
 
     @Override
     public int compareTo(Arbol o) {
-        return 0;
+        int num = this.especie.compareTo(o.getEspecie());
+        if(num == 0){
+            num = this.nombre.compareTo(o.getNombre());
+            if(num == 0){
+                num = this.id - o.getId();
+            }
+        }
+        return num;
     }
     public String toJson(){
         return "{ID=" + id + ", nombre='" + nombre + '\'' + ", especie='" + especie + '\'' + ", edad=" + edad + ", altura=" + altura + '}';
