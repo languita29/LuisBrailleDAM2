@@ -8,6 +8,14 @@ public abstract class Personaje {
         this.puntosVida = puntosVida;
         this.puntosAtaque = puntosAtaque;
     }
+    
+    public int dado(){
+        return (int) ((Math.random()*puntosAtaque)+1);
+    }
+    
+    public void recibirAtaque(int ataque){
+        puntosVida =  Math.max(puntosVida-ataque, 0);
+    }
 
     public int getPuntosVida() {
         return puntosVida;
