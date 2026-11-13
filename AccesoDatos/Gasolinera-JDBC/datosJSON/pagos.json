@@ -1,0 +1,7 @@
+{
+ [
+   {"id": 2,"clienteId": 1,"fecha": "06/05/2027","importe": 5.0,"litros": 4.0,"combustible": "Gas"},
+   {"id": 3,"clienteId": 1,"fecha": "06/10/2026","importe": 3.0,"litros": 4.0,"combustible": "Gas"},
+   {"id": 1,"clienteId": 1,"fecha": "06/10/2026","importe": 3.0,"litros": 4.0,"combustible": "Gas"}
+ ]
+}
