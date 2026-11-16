@@ -20,7 +20,7 @@ public class PrimeraConexionSQLite {
             return;
         }
 
-        String url = "jdbc:sqlite:/Users/luu/Documents/LuisBrailleDAM2/AccesoDatos/Gasolinera-JDBC/gasolinera.sqlite";
+        String url = "jdbc:sqlite:"+fichSQLite.toAbsolutePath();
 
         try(Connection conexion = DriverManager.getConnection(url);){
             try(Statement comando = conexion.createStatement()) {
